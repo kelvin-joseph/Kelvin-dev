@@ -1,0 +1,12 @@
+VISUAL TECHNOLOGY ADDED
+
+- Native page-transition overlay with graceful fallback
+- Scroll progress indicator
+- IntersectionObserver reveal system
+- Subtle image parallax
+- Desktop magnetic buttons
+- Custom cursor/ring interaction on pointer devices
+- Reduced-motion accessibility fallback
+- Responsive off-canvas navigation
+- Warm editorial design system and restrained motion
+- No heavy 3D dependency: the experience stays lightweight and deployable

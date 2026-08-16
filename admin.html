@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Content Manager — Kelvin Ene-ojo</title><meta name="description" content="Kelvin Ene-ojo — React and Front-End Developer.">
+<link rel="stylesheet" href="./css/style.css?v=9">
+</head><body data-page="admin">
+<div id="site-nav"></div><main>
+<div class="admin-shell">
+  <div class="eyebrow">Private content manager</div>
+  <h1 class="section-title">Update your portfolio.</h1>
+  <p class="section-note">This first version stores edits in this browser and lets you export the updated content file. We can connect this to Supabase in the next stage for live persistent editing.</p>
+  <div class="admin-card">
+    <h2>Profile</h2>
+    <label>Name</label><input id="name">
+    <label>Role</label><input id="role">
+    <label>Short bio</label><textarea id="shortBio"></textarea>
+    <label>About</label><textarea id="about"></textarea>
+    <label>Photo path</label><input id="photo">
+  </div>
+  <div class="admin-card">
+    <h2>Contact</h2><div id="contact-editor"></div>
+    <button class="button" id="add-contact">+ Add contact method</button>
+  </div>
+  <div class="admin-actions"><button class="button primary" id="save">Save changes</button><button class="button" id="export">Export content.js</button><button class="button" id="reset">Reset local changes</button></div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+ const original=window.SITE_CONTENT; let c=JSON.parse(localStorage.getItem('kelvinSiteContent')||JSON.stringify(original));
+ const fields=['name','role','shortBio','about','photo'];
+ fields.forEach(k=>document.getElementById(k).value=c.profile[k]||'');
+ const box=document.getElementById('contact-editor');
+ function renderContacts(){box.innerHTML=c.contact.map((x,i)=>`<div class="admin-card"><label>Label</label><input data-i="${i}" data-k="label" value="${x.label}"><label>Value</label><input data-i="${i}" data-k="value" value="${x.value}"><label>Link</label><input data-i="${i}" data-k="href" value="${x.href}"></div>`).join('');
+ box.querySelectorAll('input').forEach(el=>el.addEventListener('input',e=>c.contact[+e.target.dataset.i][e.target.dataset.k]=e.target.value));}
+ renderContacts();
+ document.getElementById('add-contact').onclick=()=>{c.contact.push({label:'New option',value:'Add link',href:'#',icon:'•'});renderContacts()};
+ document.getElementById('save').onclick=()=>{fields.forEach(k=>c.profile[k]=document.getElementById(k).value);localStorage.setItem('kelvinSiteContent',JSON.stringify(c));alert('Saved in this browser.')};
+ document.getElementById('reset').onclick=()=>{localStorage.removeItem('kelvinSiteContent');location.reload()};
+ document.getElementById('export').onclick=()=>{const blob=new Blob(['window.SITE_CONTENT = '+JSON.stringify(c,null,2)+';'],{type:'text/javascript'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='content.js';a.click();URL.revokeObjectURL(a.href)};
+});
+</script>
+</main><div id="site-footer"></div>
+<script src="./js/content.js"></script><script src="./js/app.js"></script>
+</body></html>

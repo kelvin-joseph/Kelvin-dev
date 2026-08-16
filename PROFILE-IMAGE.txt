@@ -1,0 +1,3 @@
+PROFILE PHOTO
+
+Replace assets/profile.png with your new image later. Keep the filename profile.png. No page-code edit is required.

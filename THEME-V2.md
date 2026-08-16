@@ -1,0 +1,1 @@
+Theme V2: slightly deeper warm neutral palette, plus persistent light/dark mode. The theme remembers the visitor's choice and respects system preference on first visit. Dark mode uses warm charcoal rather than pure black so the editorial feel remains consistent.
